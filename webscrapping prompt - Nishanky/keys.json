@@ -1,0 +1,5 @@
+{
+    "gateway_url":"https://5c43bfvqiq.us-east-2.awsapprunner.com",
+    "key":"sk-1a80c7c1638344e5a850c4", 
+    "model":"anthropic.claude-v3.5-sonnet-AI_Team"
+}

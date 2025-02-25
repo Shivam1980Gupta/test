@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL and Query Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0; /* Remove default margin */
+            height: 100vh; /* Make the body take up the full viewport height */
+            ; /* Use flexbox for centering */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            text-align: center; /* Center text inside elements */
+            background-color: #f9f9f9; /* Optional: Add a background color */
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="submit"] {
+            padding: 10px;
+            margin: 5px 0;
+            width: 100%;
+            max-width: 400px;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Submit URL and Query</h1>
+    <form id="dataForm">
+        <label for="url">URL:</label><br>
+        <input type="text" id="url" name="url" required><br><br>
+        <label for="query">Query:</label><br>
+        <input type="text" id="query" name="query" required><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <label for="url">Output:</label><br>
+    <div class="output" id="output">NA</div>
+
+    <script>
+        document.getElementById('dataForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+
+            // Get form data
+            const url = document.getElementById('url').value;
+            const query = document.getElementById('query').value;
+
+            // Send data to the Flask backend
+            fetch('/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ url: url, query: query }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the response from the backend
+                document.getElementById('output').innerText = data.message;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
